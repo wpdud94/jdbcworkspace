@@ -1,0 +1,58 @@
+package jdbc06.transaction;
+
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Properties;
+
+import config.ServerInfo;
+
+public class TXCommitTest2 {
+
+	public static void main(String[] args) throws Exception {
+		Connection conn = null;
+		PreparedStatement ps1 = null;
+		PreparedStatement ps2 = null;
+		PreparedStatement ps3 = null;
+		ResultSet rs = null;
+		
+		//1. 정보를 읽다
+		try {
+			Properties p = new Properties();
+			p.load(new FileInputStream("src/config/jdbc.properties"));
+			
+		// 2. key로 읽어들인 값을 각각의 변수에 할당
+			String driverName = p.getProperty("jdbc.mysql.driver");
+			String url = p.getProperty("jdbc.mysql.url");		
+			String user = p.getProperty("jdbc.mysql.user");
+			String pass = p.getProperty("jdbc.mysql.pass");
+			String selectQuery = p.getProperty("jdbc.sql.select");
+			String increaseQuery = p.getProperty("jdbc.sql.increaseupdate");
+			String decreaseQuery = p.getProperty("jdbc.sql.decreaseupdate");
+			
+		// 3. 드라이버 로딩
+			Class.forName(driverName);
+			System.out.println("Driver Loading!");
+			
+		// 4. 서버 연결
+			conn = DriverManager.getConnection(url,user,pass);
+			System.out.println("DB Connected!");
+			
+			ps1 = conn.prepareStatement(selectQuery);
+			rs = ps1.executeQuery();
+			while(rs.next()) {
+				System.out.println(rs.getString("name")+", "+
+									rs.getString("bankname")+", "+
+									rs.getString("balance"));
+			}
+			
+		
+		}catch(Exception e) {
+			System.out.println("뭔가 잘못");
+			
+		}
+	}
+
+}

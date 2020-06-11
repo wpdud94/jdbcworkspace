@@ -1,0 +1,28 @@
+package jdbc06.transaction;
+
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Properties;
+
+import config.ServerInfo;
+
+public class TXCommitTest2 {
+
+	public static void main(String[] args) throws Exception {
+		Connection conn = null;
+		PreparedStatement ps1 = null;
+		PreparedStatement ps2 = null;
+		PreparedStatement ps3 = null;
+		ResultSet rs = null;
+		
+		//1. 정보를 읽다
+		try {
+			Properties p = mew Properties();
+			p.load(new FileInputStream("src/config/jdboc.properties"));
+		}catch(Exception e)
+	}
+
+}

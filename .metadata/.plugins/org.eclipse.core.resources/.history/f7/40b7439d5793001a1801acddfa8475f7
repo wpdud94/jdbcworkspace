@@ -1,0 +1,11 @@
+package broker.three.server;
+
+public class JuryThread extends Thread {
+	public JuryThread() {
+		
+	}
+	
+	public void run() {
+		System.out.println("jury......run()......");
+	}
+}

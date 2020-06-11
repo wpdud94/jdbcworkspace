@@ -1,0 +1,48 @@
+package broker.three.server;
+
+import java.net.ServerSocket;
+import java.net.Socket;
+
+/*
+Server Side의 Process class...
+서버소켓을 가지면서 클라이언트의 접속을 기다린다
+해당 클래스는 무한루핑을 돌면서 계속 서버에 접속으로하는 클라이언트를 accept함
+리스너 스레드
+ */
+public class ProtocolHandler extends Thread{
+	// 필드 선언
+	ServerSocket server;
+	Socket s;
+	JuryThread jury;
+	Database db;
+	static final int MIDDLE_PORT = 60000;
+	
+	public ProtocolHandler(String serverIp, Database db) {//database 생성
+		//
+		try {
+			server = new ServerSocket(MIDDLE_PORT);
+			db=new Database(serverIp); // 하나 만들어놓고 만들겠다. Jury보다 먼저 만들겠다.
+		}catch(Exception e) {
+			
+		}
+		System.out.println("start protocol handler.... service port....."+MIDDLE_PORT);
+	}
+	
+	public void run() {//jury 생성
+		// 
+		while(true){
+			try {
+				s=server.accept();//클라이언트의 소켓... 바로 jury 생성
+				jury = new JuryThread(s, db); // 소켓있어야 하고, 데이터베이스를 필요하니까
+				jury.run();
+			}catch(Exception e){
+				
+			}
+		}
+	}
+	
+	public static void main (String[] args) {
+		ProtocolHandler handler = new ProtocolHandler("127.0.0.1");
+		handler.start(); // run으로 가자
+	}
+}

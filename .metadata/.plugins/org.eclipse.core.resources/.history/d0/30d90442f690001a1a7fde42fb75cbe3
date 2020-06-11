@@ -1,0 +1,11 @@
+package broker.twoteir.exception;
+
+public class InvalidTransactionException extends Exception{
+	public InvalidTransactionException() {
+		this("This is RecordNotFoundException");
+	}
+	
+	public InvalidTransactionException(String message) {
+		super(message);
+	}
+}

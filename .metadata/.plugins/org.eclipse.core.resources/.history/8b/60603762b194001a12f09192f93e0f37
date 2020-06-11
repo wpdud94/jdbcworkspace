@@ -1,0 +1,26 @@
+package jdbc06.transaction;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import config.ServerInfo;
+
+public class TXCommitTest1 {
+
+	public static void main(String[] args) throws Exception {
+		Class.forName(ServerInfo.DRIVER_NAME);
+		System.out.println("Driver loading");
+		
+		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
+		System.out.println("DBServer Connection...");
+		
+		String query1 = "INSERT INTO encore(name) VALUES(?)";
+		String query2 = "SELECT no name FROM encore WHERE no = ?";
+		
+		PreparedStatement ps1 = conn.prepareStatement(query1);
+		PreparedStatement ps2 = conn.prepareStatement(query2);
+
+	}
+
+}

@@ -1,0 +1,24 @@
+package broker.twoteir.vo;
+/**
+ * 
+ * @author Playdata
+ *
+ * Stock 테이블의 정보를 젖아하는 클래스
+ * 주식의 이름, 주식의 가격으로 구성된다.
+ * 
+ */
+
+public class StockRec {
+	private String symbol;
+	private float price;
+	
+	public StockRec() {};
+	public StockRec(String symbol, float price) {
+		super();
+		this.symbol = symbol;
+		this.price = price;
+	}
+	
+	
+
+}

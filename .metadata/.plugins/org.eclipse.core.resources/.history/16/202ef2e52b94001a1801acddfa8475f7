@@ -1,0 +1,31 @@
+package at01;
+
+public class AT01 {
+	static long solution(int a, int b) {
+		long answer = Math.min(a, b);
+		int i = 0;
+		if(a==b) answer = a;
+		if(a>b) {
+			while(i == a-b) { 
+				a++;
+				answer += a;
+				i++;
+			}
+		}
+		if(a<b) {
+			while(i == b-a) { 
+				answer += b;
+				b++;
+				i++;
+			}
+		}
+		return answer;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(solution(3,5));
+
+	}
+
+}
+

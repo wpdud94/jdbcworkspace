@@ -1,0 +1,17 @@
+package broker.three.server;
+
+import java.net.Socket;
+
+public class JuryThread extends Thread {
+	Socket s;
+	Database db;
+	
+	public JuryThread(Socket s, Database db) {
+		
+	}
+	
+	public void run() {
+		System.out.println("jury......run()......");
+	}
+	
+}

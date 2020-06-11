@@ -1,0 +1,14 @@
+package broker.twotier.test;
+
+import broker.twotier.dao.impl.Database;
+import broker.twotier.vo.CustomerRec;
+
+public class DatabaseTest {
+
+	public static void main(String[] args) {
+		Database db = new Database("127.0.0.1");
+		db.addCustomer(new CustomerRec("123", "아이유", "청담동"));
+
+	}
+
+}

@@ -1,0 +1,181 @@
+package broker.three.server;
+
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.sql.SQLException;
+import java.util.Vector;
+
+import broker.three.exception.DuplicateSSNException;
+import broker.three.exception.RecordNotFoundException;
+import broker.three.shares.Command;
+import broker.three.shares.Result;
+import broker.three.vo.CustomerRec;
+import broker.three.vo.SharesRec;
+
+public class JuryThread extends Thread{
+	Socket s;
+	Database db;
+	ObjectInputStream ois;
+	ObjectOutputStream oos;
+	Command cmd;
+	
+	
+	public JuryThread(Socket s, Database db){
+		this.s = s;
+		this.db = db;
+		
+		try {
+			ois = new ObjectInputStream(s.getInputStream());
+			oos = new ObjectOutputStream(s.getOutputStream());
+		}catch(IOException e) {
+			
+		}
+		System.out.println("Jury Creating...");		
+	}
+	
+	public void writeCommand(Command cmd) {
+		try {
+			oos.writeObject(cmd);
+			System.out.println("Client writeCommand....end..");
+		}catch(IOException e) {
+			System.out.println("Client Protocol writeCommand....error"+e);
+		}
+	}
+	
+	public void run() {		
+		System.out.println("run()....들어옴...");
+		try {
+			//1. 도시락 받는다.
+			cmd = (Command)ois.readObject();
+			System.out.println("cmd...Jury readObject()...");		
+		}catch(Exception e) {
+			
+		}
+		
+		//2. 도시락 깐다...Data UnPack...getter...상수값|반찬통|빈통
+		int comm = cmd.getCommandValue();//10~90까지의 숫자가 튀어나온다.
+		String[ ] args = cmd.getArgs();
+		Result r = cmd.getResults();
+		
+		switch(comm) {//실수형은 못온다
+		case 10://buyShares()
+			try {
+				db.buyShares(args[0], args[1], Integer.valueOf(args[2]));
+				r.setStatus(0);
+				cmd.setResults(r);
+				writeCommand(cmd);
+			} catch (Exception e1) {
+				
+			}
+			
+		case 30://getAllStocks()
+			try {
+				r.add(db.getAllStocks());
+				r.setStatus(0);
+				cmd.setResults(r);
+				writeCommand(cmd);
+				
+			}catch(Exception e) {
+				
+			}
+			break;
+		case 40 ://getPortfolio()
+			try {
+				String ssn =args[0];
+				r.add(db.getPortfolio(ssn));
+				r.setStatus(0);
+				cmd.setResults(r);
+				writeCommand(cmd);
+				
+			}catch(Exception e) {
+				
+			}
+			break;
+		case 50://getAllCustomers()
+			try {
+				r.add(db.getAllCustomers());
+				r.setStatus(0);
+				cmd.setResults(r);
+				writeCommand(cmd);
+				
+			}catch(Exception e) {
+				
+			}
+			break;
+		case 60 ://getCustomer()
+			try {
+				String ssn = args[0];
+				r.add(db.getCustomer(ssn));
+				r.setStatus(0);
+				cmd.setResults(r);
+				writeCommand(cmd);
+				
+			}catch(Exception e) {
+				
+			}
+			break;
+		
+			
+		case 70: //addCustomer()
+			try {
+				CustomerRec cr = new CustomerRec(args[0], args[1], args[2]);
+				db.addCustomer(cr);//디비 갔다온다...
+				r.setStatus(0);
+				cmd.setResults(r);
+				writeCommand(cmd);
+			}catch(DuplicateSSNException e) {
+				r.setStatus(-2);
+			}catch(Exception e) {
+				
+			}
+			break;
+		case 80: //deleteCustomer()
+			try {
+				String ssn = args[0];
+				db.deleteCustomer(ssn);
+				r.setStatus(0);
+				cmd.setResults(r);
+				writeCommand(cmd);
+			}catch(RecordNotFoundException e){
+				r.setStatus(-1);
+			}catch(Exception e) {
+				
+			}
+			break;
+		case 90://updateCustomer()
+			try {
+				CustomerRec cr = new CustomerRec(args[0],args[1],args[2]);
+				db.updateCustomer(cr);
+				r.setStatus(0);
+				cmd.setResults(r);
+				writeCommand(cmd);
+			}catch(RecordNotFoundException e) {
+				r.setStatus(-1);
+			}catch(Exception e) {
+				
+			}
+			break;
+			}
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

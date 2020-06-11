@@ -1,0 +1,37 @@
+package broker.three.client;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Vector;
+
+import broker.three.exception.DuplicateSSNException;
+import broker.three.exception.RecordNotFoundException;
+import broker.three.vo.CustomerRec;
+import broker.three.vo.SharesRec;
+
+//Datebase의 동명이인...
+public class Protocol {
+	public void addCustomer(CustomerRec cust) throws DuplicateSSNException{
+		
+	}
+	
+	public void deleteCustomer(String ssn) throws RecordNotFoundException{
+		
+	}
+	
+	public void updateCustomer(CustomerRec cust) throws RecordNotFoundException{
+		
+	}
+	
+	public Vector<SharesRec> getPortfolio(String ssn){
+		
+	}
+	
+	public CustomerRec getCustomer(String ssn) {
+		
+	}
+	
+	public ArrayList<CustomerRec> getAllCustomers(){
+		
+	}
+}

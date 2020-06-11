@@ -1,0 +1,24 @@
+package broker.twoteir.vo;
+/**
+ * 
+ * @author Playdata
+ * 
+ * Customer 테이블의 정보를 저장하는 클래스
+ * 고객에 대한 정보를 저장하는 Record Class
+ * 
+ * 주식을 보유하지 않는 고객일 수 있고 | 주식을 보유한 고객일 수 있다.
+ */
+
+/* 조금 더 세련되게 필드 지정
+주식보유 고객과 미보유 고객으로 나뉨
+
+ */
+public class CustomerRec {
+	private int ssn;
+	private String name; // 컬럼명은 cust_name
+	private String address;
+	private SharesRec shares;
+	
+	
+
+}

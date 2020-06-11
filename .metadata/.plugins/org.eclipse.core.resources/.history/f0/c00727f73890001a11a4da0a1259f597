@@ -1,0 +1,62 @@
+package jdbc.test;
+
+import java.sql.SQLException;
+
+import config.ServerInfo;
+import jdbc.dao.imple.CustomerDAOimpl;
+import jdbc.vo.Customer;
+
+public class CustomerDAOTest {
+	
+	
+	public static void main(String[] args) {
+		CustomerDAOimpl service = CustomerDAOimpl.getInstance();
+		
+		/*try {
+			service.registerCustomer(new Customer("id1", "pass1", "강제영", "사근동"));
+		} catch (SQLException e) {
+			System.out.println("회원 가입 실패");*/
+		
+		/*try {
+			service.registerCustomer(new Customer("id2", "pass2", "김희애", "서초동"));
+		} catch (SQLException e) {
+			System.out.println("회원 가입 실패");
+		}*/
+		
+		/*try {
+			service.registerCustomer(new Customer("id3", "pass3", "아이유", "청담동"));
+		} catch (SQLException e) {
+			System.out.println("회원 가입 실패");
+		}*/
+		
+		/*try {
+			service.deleteCustomer("id3");
+		} catch (SQLException e) {
+			System.out.println("회원 탈퇴 실패");
+		}*/
+		
+		try {
+			service.updateCustomer(new Customer("id3", "pass4", "아이린", "소곡동"));
+		} catch (SQLException e) {
+			System.out.println("회원 정보 수정 실패");
+		}
+		
+		try {
+			temp = service.getCustomer("id1");
+		} catch (SQLException e) {
+			System.out.println("해당 회원을 찾을 수 없습니다.");
+		}
+	}
+	
+	//static 초기화 불럭
+		static {
+				try {
+					Class.forName(ServerInfo.DRIVER_NAME);
+					System.out.println("Driver Loading OK...");
+				} catch (ClassNotFoundException e) {
+					System.out.println("Driver Loading Fail...");
+				}
+			}
+
+
+}

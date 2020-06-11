@@ -1,0 +1,21 @@
+package broker.three.server;
+/*
+Server Side의 Process class...
+서버소켓을 가지면서 클라이언트의 접속을 기다린다
+해당 클래스는 무한루핑을 돌면서 계속 서버에 접속으로하는 클라이언트를 accept함
+리스너 스레드
+ */
+public class ProtocolHandler extends Thread{
+	
+	public ProtocolHandler(String serverIp) {
+		
+	}
+	
+	public void run() {
+		
+	}
+	
+	public static void main (String[] args) {
+		ProtocolHandler handler = new ProtocolHandler("127.0.0.1");
+	}
+}

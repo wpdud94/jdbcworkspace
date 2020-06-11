@@ -1,0 +1,18 @@
+package jdbc06.transaction;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import config.ServerInfo;
+
+public class TXCommitTest1 {
+
+	public static void main(String[] args) throws Exception {
+		Class.forName(ServerInfo.DRIVER_NAME);
+		System.out.println("Driver loading");
+		
+		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASS);
+
+	}
+
+}

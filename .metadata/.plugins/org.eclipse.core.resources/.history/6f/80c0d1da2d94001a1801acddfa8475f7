@@ -1,0 +1,35 @@
+package at01;
+
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+public class AT01 {
+	
+
+	public static void main(String[] args) {
+		System.out.println(function.solution(3,5));
+
+	}
+
+}
+
+class function {
+	public static long solution(int a, int b) {
+		long answer = Math.min(a, b);
+		int i = 0;
+		int j = 0;
+		if(a==b) {
+			answer = a;
+		}else if(a>b) {
+			while(i < a-b) {
+				answer += a++;
+				i++;
+			}
+		}else if(a<b) {
+			while(i < b-a) {
+				answer += b++;
+				i++;
+			}
+		}
+		return answer;
+	}
+}

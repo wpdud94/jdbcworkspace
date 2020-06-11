@@ -1,0 +1,8 @@
+######### db server information ##############
+jdbc.mysql.driver=
+jdbc.mysql.url=
+jdbc.mysql.user=
+jdbc.mysql.pass=
+
+
+######### sql query ############

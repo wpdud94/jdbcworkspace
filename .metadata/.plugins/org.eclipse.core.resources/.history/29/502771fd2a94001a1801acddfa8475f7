@@ -1,0 +1,23 @@
+package at01;
+
+public class AT01 {
+	static long solution(int a, int b) {
+		long answer = a+b;
+		if(a==b) answer = a;
+		if(a>b){
+			for(int i=b;i<a-b;i++) answer += i;
+			i++;
+		}
+		if(a<b) {
+			for(int i=a;i<b-a;i++) answer += i++;
+		}
+		return answer;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(solution(3,5));
+
+	}
+
+}
+

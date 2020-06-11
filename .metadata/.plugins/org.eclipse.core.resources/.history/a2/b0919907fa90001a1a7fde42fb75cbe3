@@ -1,0 +1,17 @@
+package broker.twotier.test;
+
+import java.sql.SQLException;
+
+import broker.twotier.dao.impl.Database;
+import broker.twotier.exception.DuplicateSSNException;
+import broker.twotier.vo.CustomerRec;
+
+public class DatabaseTest {
+
+	public static void main(String[] args) throws SQLException, DuplicateSSNException {
+		Database db = new Database("127.0.0.1");
+		db.addCustomer(new CustomerRec("123", "아이유", "청담동"));
+
+	}
+
+}
